@@ -7,18 +7,14 @@ build-backend = "setuptools.build_meta"
 
 
 [project]
-name = "libbot"
-description = "the python3 bot namespace"
-version = "70"
+name = "libop"
+description = "original programmer"
+version = "3"
 authors = [
-    {name = "libbot",email = "libbotx@gmail.com"},
+    {name = "Bart Thate",email = "libbotx@gmail.com"},
 ]
 readme = "README.rst"
 license = {text="Public Domain"}
-dependencies = [
-    "libobj",
-    "libprg"
-]
 classifiers = [ 
     'Development Status :: 3 - Alpha',
     'License :: Public Domain',
@@ -29,25 +25,21 @@ classifiers = [
 
 
 [project.urls]
-"home" = "https://pypi.org/project/libbot"
-"bugs" = "https://github.com/botlibx/libbot/issues"
-"source" = "https://github.com/botlibx/libbot"
+"home" = "https://pypi.org/project/libop"
+"bugs" = "https://github.com/botlibx/libop/issues"
+"source" = "https://github.com/botlibx/libop"
 
 
 [tool.setuptools]
 packages = [
-    'bot',
-    'bot.modules'
-]
-script-files = [
-    'bin/bot',
-    'bin/botd'
+    'op',
+    'op.mods'
 ]
 zip-safe=true
 
 
 [tool.setuptools.data-files]
-"share/doc/libbot" = [
+"share/doc/libop" = [
     "README.rst",
 ]
 

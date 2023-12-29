@@ -16,15 +16,15 @@ import time
 import _thread
 
 
-from obj import Default, Object, edit, fmt, keys
-from prg import Client, Command, Error, Event
-from prg import byorig, debug, last, launch, write
+from .. import Default, Object, edit, fmt, keys
+from .. import Client, Command, Error, Event
+from .. import byorig, debug, last, launch, write
 
 
 Error.filter = ["PING", "PONG", "PRIVMSG"]
 
 
-NAME = "bot"
+NAME = "op"
 
 
 saylock = _thread.allocate_lock()

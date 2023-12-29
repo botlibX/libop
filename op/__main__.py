@@ -26,9 +26,6 @@ from .parse   import parse_command, spl
 from .storage import Storage, cdir
 
 
-from . import mods as modules
-
-
 Cfg         = Default()
 Cfg.mod     = "cmd,err,mod,mre,pwd,thr"
 Cfg.name    = "op"
@@ -39,6 +36,9 @@ Cfg.user    = getpass.getuser()
 
 
 Storage.wd   = Cfg.wd
+
+
+from . import mods as modules
 
 
 class Console(Client):
