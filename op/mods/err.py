@@ -6,7 +6,7 @@
 "status of bots"
 
 
-from prg import Error, Fleet
+from op import Error, Fleet
 
 
 def err(event):

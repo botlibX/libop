@@ -6,13 +6,35 @@
 "program"
 
 
+from .object  import *
 from .storage import *
+from .default import *
 from .error   import *
 from .find    import *
 from .fleet   import *
 from .handler import *
 from .parse   import *
 from .thread  import *
+
+
+def __object__():
+    return (
+            'Default',
+            'Object',
+            'construct',
+            'dump',
+            'dumps',
+            'edit',
+            'fmt',
+            'fqn',
+            'ident',
+            'items',
+            'keys',
+            'load',
+            'loads',
+            'update',
+            'values',
+           )
 
 
 def __dir__():
@@ -36,7 +58,7 @@ def __dir__():
         'sync',
         'write',
         'Storage',
-    )
+    ) + __object__()
 
 
 __all__ = __dir__()
