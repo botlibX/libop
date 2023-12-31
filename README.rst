@@ -34,7 +34,7 @@ INSTALL
 
 ::
 
-   $ pip install libobj
+   $ pip install libop
 
 
 AUTHOR
