@@ -8,6 +8,7 @@
 
 import queue
 import threading
+import _thread
 
 
 from .objects import Object
