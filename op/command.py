@@ -1,6 +1,6 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C,R,W0201,W0212,W0105,W0613,W0406,E0102,W0611,W0718,W0125
+# pylint: disable=C,R,W0718,W0611,E0402
 
 
 "commands"
@@ -9,6 +9,7 @@
 from .excepts import Error
 from .objects import Object
 from .parsers import parse_command
+from .threads import launch
 
 
 def __dir__():
@@ -25,7 +26,7 @@ class Command(Object):
     cmds = Object()
 
     @staticmethod
-    def add(func) -> None:
+    def add(func):
         setattr(Command.cmds, func.__name__, func)
 
     @staticmethod

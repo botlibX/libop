@@ -1,23 +1,20 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=E0603,E0402,W0401,W0614,W0611,W0622
+# pylint: disable=C,R,W0401,E0402
 
 
-"package"
+"specification"
 
 
-from .objects import *
 from .brokers import *
-from .clients import *
 from .command import *
-from .default import *
 from .excepts import *
 from .handler import *
-from .locates import *
-from .message import *
+from .objects import *
 from .parsers import *
 from .storage import *
 from .threads import *
+from .utility import *
 
 
 def __object__():
@@ -25,43 +22,39 @@ def __object__():
             'Default',
             'Object',
             'construct',
-            'dump',
-            'dumps',
             'edit',
             'fmt',
             'fqn',
-            'ident',
             'items',
             'keys',
-            'load',
-            'loads',
+            'read',
             'update',
             'values',
+            'write'
            )
 
 
 def __dir__():
     return (
-        'Client',
         'Command',
         'Error',
         'Event',
+        'Fleet',
+        'Repeater',
         'Storage',
         'byorig',
         'cdir',
+        'cmnd',
         'fetch',
         'find',
         'fns',
-        'fntime',
+        'fntime'
+        'forever',
         'ident',
         'launch',
         'last',
         'parse_command',
-        'read',
+        'scan',
         'sync',
-        'write',
         'Storage',
     ) + __object__()
-
-
-__all__ = __dir__()

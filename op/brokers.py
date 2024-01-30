@@ -1,6 +1,6 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C,R,W0201,W0212,W0105,W0613,W0406,E0102,W0611,W0718,W0125
+# pylint: disable=C,R, E0402
 
 
 "list of bots"
@@ -24,7 +24,7 @@ class Fleet(Object):
     objs = []
 
     @staticmethod
-    def add(obj) -> None:
+    def add(obj):
         Fleet.objs.append(obj)
 
     @staticmethod
@@ -38,7 +38,7 @@ class Fleet(Object):
             Fleet.objs.remove(obj)
 
     @staticmethod
-    def byorig(orig) -> Object:
+    def byorig(orig):
         for obj in Fleet.objs:
             if object.__repr__(obj) == orig:
                 return obj

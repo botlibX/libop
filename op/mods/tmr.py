@@ -1,6 +1,6 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C,R,W0612.W0702
+# pylint: disable=C,R,W0612.W0702,E0402
 
 
 "timer"
@@ -10,7 +10,7 @@ import time
 
 
 from .. import Event, Fleet, Timer
-from .. import find, laps, launch, update, write
+from .. import find, laps, launch, update, sync
 from .. import NoDate, today, to_day, get_day, get_hour
 
 
@@ -72,5 +72,5 @@ def tmr(event):
     event.result.append(event.rest)
     timer = Timer(diff, event.show)
     update(timer, event)
-    write(timer)
+    sync(timer)
     launch(timer.start)

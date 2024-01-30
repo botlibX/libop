@@ -1,43 +1,32 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C,R,E0603,E0402,W0401,W0614,W0611,W0622,W0105
+# pylint: disable=C,R,W0105
 
 
 "a clean namespace"
 
 
-import datetime
 import json
-import os
-import sys
-import types
 
 
 def __dir__():
     return (
-            'Object',
-            'construct',
-            'dump',
-            'dumps',
-            'edit',
-            'fmt',
-            'fqn',
-            'ident',
-            'items',
-            'keys',
-            'load',
-            'loads',
-            'name',
-            'update',
-            'values',
-           )
+        'Object',
+        'construct',
+        'edit',
+        'fmt',
+        'fqn',
+        'items',
+        'keys',
+        'update',
+        'values',
+    )
 
 
 __all__ = __dir__()
 
 
 class Object:
-
 
     def __contains__(self, key):
         return key in dir(self)
@@ -49,13 +38,10 @@ class Object:
         return len(self.__dict__)
 
     def __repr__(self):
-        return dumps(self)
+        return dumps(self, indent=4)
 
     def __str__(self):
         return str(self.__dict__)
-
-
-"decoder"
 
 
 class ObjectDecoder(json.JSONDecoder):
@@ -70,7 +56,7 @@ class ObjectDecoder(json.JSONDecoder):
         return json.JSONDecoder.raw_decode(self, s, idx)
 
 
-def hook(objdict, typ=None) -> Object:
+def hook(objdict, typ=None):
     if typ:
         obj = typ()
     else:
@@ -79,24 +65,21 @@ def hook(objdict, typ=None) -> Object:
     return obj
 
 
-def load(fpt, *args, **kw) -> Object:
+def load(fpt, *args, **kw):
     kw["cls"] = ObjectDecoder
     kw["object_hook"] = hook
     return json.load(fpt, *args, **kw)
 
 
-def loads(string, *args, **kw) -> Object:
+def loads(string, *args, **kw):
     kw["cls"] = ObjectDecoder
     kw["object_hook"] = hook
     return json.loads(string, *args, **kw)
 
 
-"encoder"
-
-
 class ObjectEncoder(json.JSONEncoder):
 
-    def default(self, o) -> str:
+    def default(self, o):
         if isinstance(o, dict):
             return o.items()
         if isinstance(o, Object):
@@ -126,7 +109,7 @@ class ObjectEncoder(json.JSONEncoder):
                    self,
                    o,
                    _one_shot=False
-                  ) -> str:
+                  ):
         return json.JSONEncoder.iterencode(self, o, _one_shot)
 
 
@@ -143,7 +126,7 @@ def dumps(*args, **kw) -> str:
 "methods"
 
 
-def construct(obj, *args, **kwargs) -> None:
+def construct(obj, *args, **kwargs):
     if args:
         val = args[0]
         if isinstance(val, zip):
@@ -156,7 +139,7 @@ def construct(obj, *args, **kwargs) -> None:
         update(obj, kwargs)
 
 
-def edit(obj, setter, skip=False) -> None:
+def edit(obj, setter, skip=False):
     for key, val in items(setter):
         if skip and val == "":
             continue
@@ -178,7 +161,7 @@ def edit(obj, setter, skip=False) -> None:
             setattr(obj, key, val)
 
 
-def fmt(obj, args=None, skip=None, plain=False) -> str:
+def fmt(obj, args=None, skip=None, plain=False):
     if args is None:
         args = keys(obj)
     if skip is None:
@@ -201,52 +184,31 @@ def fmt(obj, args=None, skip=None, plain=False) -> str:
     return txt.strip()
 
 
-def fqn(obj) -> str:
+def fqn(obj):
     kin = str(type(obj)).split()[-1][1:-2]
     if kin == "type":
         kin = obj.__name__
     return kin
 
 
-def ident(obj) -> str:
-    return os.path.join(
-                        fqn(obj),
-                        os.path.join(*str(datetime.datetime.now()).split())
-                       )
-
-def items(obj) -> []:
+def items(obj):
     if isinstance(obj, type({})):
         return obj.items()
     return obj.__dict__.items()
 
 
-def keys(obj) -> []:
+def keys(obj):
     if isinstance(obj, type({})):
         return obj.keys()
     return list(obj.__dict__.keys())
 
 
-def name(obj) -> str:
-    typ = type(obj)
-    if isinstance(typ, types.ModuleType):
-        return obj.__name__
-    if '__self__' in dir(obj):
-        return f'{obj.__self__.__class__.__name__}.{obj.__name__}'
-    if '__class__' in dir(obj) and '__name__' in dir(obj):
-        return f'{obj.__class__.__name__}.{obj.__name__}'
-    if '__class__' in dir(obj):
-        return f"{obj.__class__.__module__}.{obj.__class__.__name__}"
-    if '__name__' in dir(obj):
-        return f'{obj.__class__.__name__}.{obj.__name__}'
-    return None
-
-
-def update(obj, data, empty=True) -> None:
+def update(obj, data, empty=True):
     for key, value in items(data):
         if empty and not value:
             continue
         setattr(obj, key, value)
 
 
-def values(obj) -> []:
+def values(obj):
     return obj.__dict__.values()

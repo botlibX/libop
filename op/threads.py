@@ -1,6 +1,6 @@
 # This file is placed in the Public Domain.
 #
-# pylint: disable=C,R,W0201,W0212,W0105,W0613,W0406,E0102,W0611,W0718,W0125
+# pylint: disable=C,R,W0718,E0402
 
 
 "threads"
@@ -13,7 +13,7 @@ import types
 
 
 from .excepts import Error
-from .objects import Object, name
+from .objects import Object
 
 
 def __dir__():
@@ -21,18 +21,12 @@ def __dir__():
        'Repeater',
        'Thread',
        'Timer',
-       'launch'
+       'launch',
+       'name',
     )
 
 
 __all__ = __dir__()
-
-
-def launch(func, *args, **kwargs):
-    nme = kwargs.get("name", name(func))
-    thread = Thread(func, nme, *args, **kwargs)
-    thread.start()
-    return thread
 
 
 class Thread(threading.Thread):
@@ -53,11 +47,11 @@ class Thread(threading.Thread):
         for k in dir(self):
             yield k
 
-    def join(self, timeout=None) -> type:
+    def join(self, timeout=None):
         super().join(timeout)
         return self._result
 
-    def run(self) -> None:
+    def run(self):
         func, args = self.queue.get()
         try:
             self._result = func(*args)
@@ -78,11 +72,11 @@ class Timer(Object):
         self.state = {}
         self.timer = None
 
-    def run(self) -> None:
+    def run(self):
         self.state["latest"] = time.time()
         launch(self.func, *self.args)
 
-    def start(self) -> None:
+    def start(self):
         timer = threading.Timer(self.sleep, self.run)
         timer.name   = self.name
         timer.daemon = True
@@ -94,14 +88,36 @@ class Timer(Object):
         timer.start()
         self.timer   = timer
 
-    def stop(self) -> None:
+    def stop(self):
         if self.timer:
             self.timer.cancel()
 
 
 class Repeater(Timer):
 
-    def run(self) -> Thread:
+    def run(self):
         thr = launch(self.start)
         super().run()
         return thr
+
+
+def launch(func, *args, **kwargs):
+    nme = kwargs.get("name", name(func))
+    thread = Thread(func, nme, *args, **kwargs)
+    thread.start()
+    return thread
+
+
+def name(obj):
+    typ = type(obj)
+    if isinstance(typ, types.ModuleType):
+        return obj.__name__
+    if '__self__' in dir(obj):
+        return f'{obj.__self__.__class__.__name__}.{obj.__name__}'
+    if '__class__' in dir(obj) and '__name__' in dir(obj):
+        return f'{obj.__class__.__name__}.{obj.__name__}'
+    if '__class__' in dir(obj):
+        return f"{obj.__class__.__module__}.{obj.__class__.__name__}"
+    if '__name__' in dir(obj):
+        return f'{obj.__class__.__name__}.{obj.__name__}'
+    return None

@@ -3,38 +3,22 @@
 #
 
 
-"pre-import"
+"modules"
 
 
-import importlib
-import os
-import sys
-
-
-from . import cmd, dbg, err, fnd, irc, log, mbx, mdl, mod, mre, pwd, req
-from . import rss, rst, tdo, thr, tmr, udp, wsd
+from . import cmd, flt, irc, log, mod, rst, rss, tdo, thr, udp
 
 
 def __dir__():
     return (
         'cmd',
-        'err',
-        'fnd',
+        'flt',
         'irc',
         'log',
-        'mbx',
-        'mdl',
         'mod',
-        'mre',
-        'pwd',
-        'req',
         'rss',
-        'rst',
         'tdo',
         'thr',
-        'tmr',
-        'udp',
-        'wsd'
     )
 
 
