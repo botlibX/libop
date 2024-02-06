@@ -21,7 +21,7 @@ from .configs import Cfg
 
 
 from . import Client, Command, Default, Error, Event, Object, Storage
-from . import cdir, debug, launch, parse_cmd, spl, scan, update
+from . import cdir, debug, enable, launch, parse_cmd, spl, scan, update
 
 
 def __dir__():
@@ -141,10 +141,12 @@ def wrap(func):
 
 
 def main():
-    Storage.skel()
     parse_cmd(Cfg, " ".join(sys.argv[1:]))
-    update(Cfg, Cfg.sets)
     Cfg.mod = "cmd,mod"
+    Cfg.user = getpass.getuser()
+    Storage.skel()
+    update(Cfg, Cfg.sets)
+    enable(print)
     if "a" in Cfg.opts:
         Cfg.mod = ",".join(modules.__dir__())
     if "v" in Cfg.opts:
