@@ -3,58 +3,30 @@
 # pylint: disable=C,R,W0401,E0402
 
 
-"specification"
+
+""" @KarimKhanQC reconsider OTP-CR-117/19
 
 
-from .brokers import *
-from .command import *
-from .excepts import *
-from .handler import *
-from .objects import *
-from .parsers import *
-from .storage import *
-from .threads import *
-from .utility import *
+sbn <cmd> [key=val] [key==val] [mod=n1,n2]
+sbn [-a] [-c] [-d] [-h] [-v] [-w]
+
+commands:
+
+cfg - irc configuration
+cmd - commands
+mod - show available modules
+now - show genocide stats
+req - reconsider
+wsd - show wisdom
+
+options:
+
+-a     load all modules
+-c     start console
+-d     start daemon
+-h     display help
+-v     use verbose
+-w     wait for services"""
 
 
-def __object__():
-    return (
-            'Default',
-            'Object',
-            'construct',
-            'edit',
-            'fmt',
-            'fqn',
-            'items',
-            'keys',
-            'read',
-            'update',
-            'values',
-            'write'
-           )
-
-
-def __dir__():
-    return (
-        'Command',
-        'Error',
-        'Event',
-        'Fleet',
-        'Repeater',
-        'Storage',
-        'byorig',
-        'cdir',
-        'cmnd',
-        'fetch',
-        'find',
-        'fns',
-        'fntime'
-        'forever',
-        'ident',
-        'launch',
-        'last',
-        'parse_command',
-        'scan',
-        'sync',
-        'Storage',
-    ) + __object__()
+from .defines import *

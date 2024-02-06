@@ -12,9 +12,8 @@ import _thread
 
 
 from .brokers import Fleet
-from .objects import Object
+from .objects import Default, Object
 from .threads import launch
-from .utility import Default
 
 
 def __dir__():
