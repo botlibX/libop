@@ -4,11 +4,11 @@
 
 
 
-""" @KarimKhanQC reconsider OTP-CR-117/19
+"""original programmer (op)
 
 
-sbn <cmd> [key=val] [key==val] [mod=n1,n2]
-sbn [-a] [-c] [-d] [-h] [-v] [-w]
+op <cmd> [key=val] [key==val] [mod=n1,n2]
+op [-a] [-c] [-d] [-h] [-v] [-w]
 
 commands:
 
@@ -30,3 +30,4 @@ options:
 
 
 from .defines import *
+from .defines import __dir__

@@ -161,10 +161,11 @@ def main():
         print(txt)
         return
     if "c" in Cfg.opts:
-        scan(modules, Cfg.mod, True, Cfg.sets.dis, True)
+        scan(modules, Cfg.mod, Cfg.mod, Cfg.sets.dis, True)
         csl.start()
         forever()
     if Cfg.otxt:
+        Cfg.mod = ",".join(modules.__dir__())
         scan(modules, Cfg.mod)
         return cmnd(Cfg.otxt, print)
 
