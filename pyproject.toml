@@ -33,7 +33,7 @@ classifiers = [
 [tool.setuptools]
 packages = [
     'op',
-    'op.mods'
+    'op.modules'
 ]
 zip-safe=true
 

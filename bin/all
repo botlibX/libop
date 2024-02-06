@@ -1,0 +1,8 @@
+bin/clean -f
+bin/tinder -v
+pytest
+pylint op
+bin/clean
+python3 setup.py sdist
+twine check dist/*
+
